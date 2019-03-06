@@ -1,13 +1,9 @@
-FROM microsoft/dotnet:2.0.5-sdk-2.1.4-jessie
-
-# set up environment
-ENV ASPNETCORE_URLS http://+:80
-ENV ASPNETCORE_PKG_VERSION 2.0.5
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-preview3-bionic
 
 # set up node
-ENV NODE_VERSION 8.9.4
+ENV NODE_VERSION 11.11.0
 ENV NODE_DOWNLOAD_URL https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz
-ENV NODE_DOWNLOAD_SHA 21fb4690e349f82d708ae766def01d7fec1b085ce1f5ab30d9bda8ee126ca8fc
+ENV NODE_DOWNLOAD_SHA f749e64a56dc71938fa5d2774b4e53068d19ad9f48b4a62257633b25459bffa6
 
 RUN curl -SL "$NODE_DOWNLOAD_URL" --output nodejs.tar.gz \
     && echo "$NODE_DOWNLOAD_SHA nodejs.tar.gz" | sha256sum -c - \
@@ -19,16 +15,10 @@ RUN curl -SL "$NODE_DOWNLOAD_URL" --output nodejs.tar.gz \
     && echo '{ "allow_root": true }' > /root/.bowerrc
 
 # set up yarn
-ENV YARN_VERSION 1.3.2
+ENV YARN_VERSION 1.13.0
 
 RUN set -ex \
-  && for key in \
-    6A010C5166006599AA17F08146C2130DFD2497F5 \
-  ; do \
-    gpg --keyserver pgp.mit.edu --recv-keys "$key" || \
-    gpg --keyserver keyserver.pgp.com --recv-keys "$key" || \
-    gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key" ; \
-  done \
+  && wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --import \
   && curl -fSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
   && curl -fSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz.asc" \
   && gpg --batch --verify yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz \
@@ -37,12 +27,5 @@ RUN set -ex \
   && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarn \
   && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg \
   && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
-
-# warmup NuGet package cache
-COPY packagescache.csproj /tmp/warmup/
-RUN dotnet restore /tmp/warmup/packagescache.csproj \
-      --source https://api.nuget.org/v3/index.json \
-      --verbosity quiet \
-    && rm -rf /tmp/warmup/
 
 WORKDIR /
