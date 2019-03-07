@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-preview3-bionic
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2
 
 # set up node
 ENV NODE_VERSION 11.11.0
@@ -9,10 +9,7 @@ RUN curl -SL "$NODE_DOWNLOAD_URL" --output nodejs.tar.gz \
     && echo "$NODE_DOWNLOAD_SHA nodejs.tar.gz" | sha256sum -c - \
     && tar -xzf "nodejs.tar.gz" -C /usr/local --strip-components=1 \
     && rm nodejs.tar.gz \
-    && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
-    # set up bower and gulp
-    && npm install -g bower gulp \
-    && echo '{ "allow_root": true }' > /root/.bowerrc
+    && ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
 # set up yarn
 ENV YARN_VERSION 1.13.0
