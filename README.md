@@ -10,6 +10,10 @@ This image was pushed to Docker Hub using an authorized account with the command
 
 When updating versions, create a new branch with the version name (current year and month) and ensure the changes go on that branch. The `master` branch tracks the `latest` version.
 
+* `2021.11`
+  * ASP.NET Core: 3.1
+  * Node.js : 16.13.0
+  * Yarn : 1.22.15
 * `2019.12`
   * ASP.NET Core: 3.1
   * Node.js : 12.13.1
