@@ -2,9 +2,9 @@
 
 Image for building ASP.NET Core 3.1 applications with Yarn installed.
 
-This image was built with the command: `docker build . -t faithlife/aspnetcore-build-yarn:2019.12`.
+This image was built with the command: `docker build . -t faithlife/aspnetcore-build-yarn:2021.11`.
 
-This image was pushed to Docker Hub using an authorized account with the command `docker push faithlife/aspnetcore-build-yarn:2019.12`.
+This image was pushed to Docker Hub using an authorized account with the command `docker push faithlife/aspnetcore-build-yarn:2021.11`.
 
 ## Branches & Versions
 
