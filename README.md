@@ -1,15 +1,19 @@
 # `faithlife/aspnetcore-build-yarn` Docker Image
 
-Image for building ASP.NET Core 3.1 applications with Yarn installed.
+Image for building ASP.NET Core and .NET 6.0 applications with Yarn installed.
 
-This image was built with the command: `docker build . -t faithlife/aspnetcore-build-yarn:2021.11`.
+This image was built with the command: `docker build . -t faithlife/aspnetcore-build-yarn:2021.12`.
 
-This image was pushed to Docker Hub using an authorized account with the command `docker push faithlife/aspnetcore-build-yarn:2021.11`.
+This image was pushed to Docker Hub using an authorized account with the command `docker push faithlife/aspnetcore-build-yarn:2021.12`.
 
 ## Branches & Versions
 
 When updating versions, create a new branch with the version name (current year and month) and ensure the changes go on that branch. The `master` branch tracks the `latest` version.
 
+* `2021.12`
+  * ASP.NET Core/.NET : 6.0
+  * Node.js : 16.13.0
+  * Yarn : 1.22.15
 * `2021.11`
   * ASP.NET Core: 3.1
   * Node.js : 16.13.0

@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1
+FROM mcr.microsoft.com/dotnet/sdk:6.0
 
 # set up node
 ENV NODE_VERSION 16.13.0
@@ -10,6 +10,8 @@ RUN curl -SL "$NODE_DOWNLOAD_URL" --output nodejs.tar.gz \
     && tar -xzf "nodejs.tar.gz" -C /usr/local --strip-components=1 \
     && rm nodejs.tar.gz \
     && ln -s /usr/local/bin/node /usr/local/bin/nodejs
+
+RUN apt update && apt -y install gnupg
 
 # set up yarn
 ENV YARN_VERSION 1.22.15
